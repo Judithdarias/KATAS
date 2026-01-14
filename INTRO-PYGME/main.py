@@ -1,5 +1,5 @@
 import pygame as pg
-from figura_class import Rectangulo,Circulo
+from figura_class import Figura
 
 #inicializar todos los modulos de pygmae (pantallas,objetos,sonidos,etc)
 pg.init()
@@ -10,10 +10,10 @@ pantalla = pg.display.set_mode( (x_pos,y_pos))#definicion de tamaño de pantalla
 pg.display.set_caption("Intro Pygame")#agregar titulo en string a mi ventana
 
 game_over = True
-rectangulo1 = Rectangulo(0,300,(201,92,56))
-rectangulo2 = Rectangulo(20,500)
-rectangulo3 = Rectangulo(0,400,(222,22,55))
-circulo1 = Circulo(200,500,(131,214,71),20)
+rectangulo1 = Figura(0,300,color=(201,92,56))
+rectangulo2 = Figura(20,500)
+rectangulo3 = Figura(0,400,color=(222,22,55))
+circulo1 = Figura(200,500,color=(131,214,71),radio=20)
 
 while game_over:
     for eventos in pg.event.get(): #capturar todos los eventos mientras se ejecuta el bucle
@@ -30,10 +30,10 @@ while game_over:
         
     #agregamos objeto a la pantalla
     #draw.rect(sourface,color en (rgb),posiciones (posicionX,posicionY,tamañoX, tamañoY)
-    rectangulo1.dibujar(pantalla)
-    rectangulo2.dibujar(pantalla)
-    rectangulo3.dibujar(pantalla)
-    circulo1.dibujar(pantalla)
+    rectangulo1.dibujar_rectangulo(pantalla)
+    rectangulo2.dibujar_rectangulo(pantalla)
+    rectangulo3.dibujar_rectangulo(pantalla)
+    circulo1.dibujar_circulo(pantalla)
 
 
 

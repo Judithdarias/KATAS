@@ -56,10 +56,7 @@ while game_over:
     raqueta2.mover(pg.K_UP,pg.K_DOWN)
     print("raqueta1:",pelota.contadorDerecho)
     print("raqueta2:",pelota.contadorIzquierdo)
-    marcador1 = marcador1_font.render(str(pelota.contadorIzquierdo),True,(255,255,255))
-    marcador2 = marcador2_font.render(str(pelota.contadorDerecho),True,(255,255,255))
-    pantalla_principal.blit(marcador1,(320,50))
-    pantalla_principal.blit(marcador2,(450,50))
+    pelota.mostrar_marcador(pantalla_principal)
 
     pg.display.flip()
 

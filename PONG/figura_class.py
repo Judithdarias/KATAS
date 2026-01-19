@@ -49,7 +49,23 @@ class Pelota:
             self.contadorDerecho +=1
 
         if self.pos_y >= ymax-(self.radio) or self.pos_y <=0+(self.radio):
-            self.vy = self.vy*-1    
+            self.vy = self.vy*-1  
+    
+    def mostrar_marcador(self,pantalla_principal):
+        marcador_font=pg.font.SysFont("arial",30)
+    
+
+        marcador1 = marcador_font.render(str(self.contadorIzquierdo),True,(255,255,255))
+        marcador2 = marcador_font.render(str(self.contadorDerecho),True,(255,255,255))
+        
+        jugador1 = marcador_font.render("Jugador1",True,(255,255,255))
+        jugador2 = marcador_font.render("Jugador2",True,(255,255,255))
+
+
+        pantalla_principal.blit(marcador1,(320,50))
+        pantalla_principal.blit(marcador2,(450,50))
+        pantalla_principal.blit(jugador1,(280,20))
+        pantalla_principal.blit(jugador2,(420,20))
 
 
     

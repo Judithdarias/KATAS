@@ -12,6 +12,15 @@ pelota = Pelota(400,300,color =(225,232,70))
 #definir tiempo de tasa de refresco dentro del bucle que fotogramas fps=fotograma por segundo
 tasa_refresco= pg.time.Clock()
 
+
+#agregar texto marcadores,funte y tamaño de letra
+marcador1_font=pg.font.SysFont("verdana",30)
+marcador2_font=pg.font.SysFont("verdana",30)
+
+#asignacion de color y texto
+marcador1 = marcador1_font.render("10",True,(255,255,255))
+marcador2 = marcador2_font.render("10",True,(255,255,255))
+
 game_over = True
 while game_over:
        #obtenemos la tasa de refresco en milisegundos
@@ -32,8 +41,8 @@ while game_over:
     x = 400
     raya = 15   
     espacio = 10   
-
     y = 0
+
     while y < 600:
         pg.draw.line(pantalla_principal,(255, 255, 255),(x, y),(x, y + raya),width=10)
         y += raya + espacio
@@ -47,6 +56,11 @@ while game_over:
     raqueta2.mover(pg.K_UP,pg.K_DOWN)
     print("raqueta1:",pelota.contadorDerecho)
     print("raqueta2:",pelota.contadorIzquierdo)
+    marcador1 = marcador1_font.render(str(pelota.contadorIzquierdo),True,(255,255,255))
+    marcador2 = marcador2_font.render(str(pelota.contadorDerecho),True,(255,255,255))
+    pantalla_principal.blit(marcador1,(320,50))
+    pantalla_principal.blit(marcador2,(450,50))
+
     pg.display.flip()
 
 

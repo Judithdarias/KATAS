@@ -18,7 +18,18 @@ class Raqueta:
             self.pos_y = self.pos_y -1
         if teclado[teclado_abajo]==True and self.pos_y <=600-(self.h//2):
             self.pos_y = self.pos_y +1
-
+    @property
+    def p_derecho(self):
+        return self.pos_x + (self.w//2)
+    @property
+    def p_izquierdo(self):
+        return self.pos_x - (self.w//2)
+    @property
+    def p_arriba(self):
+        return self.pos_y - (self.h//2)
+    @property
+    def p_abajo(self):
+        return self.pos_y + (self.h//2)
 class Pelota:
     def __init__(self,posx,posy,color=(255,255,255),radio=20):
         self.pos_x = posx
@@ -39,17 +50,22 @@ class Pelota:
         self.pos_y = self.pos_y - self.vy
         
         #limite derecho
-        if self.pos_x >= xmax+(8*self.radio):
-            self.vx = self.vx*-1
+        if self.pos_x >= xmax+(8*self.radio):         
             self.contadorIzquierdo +=1
-
+            self.pos_x = 400
+            self.pos_y = 300 
+            self.vx = self.vx*-1   
         #limite izquierdo
         if self.pos_x <=0-(8*self.radio):
-            self.vx = self.vx*-1
             self.contadorDerecho +=1
+            self.pos_x = 400
+            self.pos_y = 300 
+            self.vx = self.vx*-1   
+            
+        
 
         if self.pos_y >= ymax-(self.radio) or self.pos_y <=0+(self.radio):
-            self.vy = self.vy*-1  
+            self.vy = self.vy*-1   
     
     def mostrar_marcador(self,pantalla_principal):
         marcador_font=pg.font.SysFont("arial",30)
@@ -67,6 +83,38 @@ class Pelota:
         pantalla_principal.blit(jugador1,(280,20))
         pantalla_principal.blit(jugador2,(420,20))
 
+    @property
+    def p_derecho(self):
+        return self.pos_x + (self.radio)
+    @property
+    def p_izquierdo(self):
+        return self.pos_x - (self.radio)
+    @property
+    def p_arriba(self):
+        return self.pos_y - (self.radio)
+    @property
+    def p_abajo(self):
+        return self.pos_y + (self.radio)
+    
+    def comprobar_choque(self,r1,r2):
+        #logica de choque
+        if self.p_derecho >= r2.p_izquierdo and\
+            self.p_arriba <= r2.p_abajo and \
+            self.p_abajo >= r2.p_arriba:
+            self.vx = self.vx *-1
+        if self.p_izquierdo <= r1.p_derecho and\
+            self.p_arriba <= r1.p_abajo and \
+            self.p_abajo >= r1.p_arriba:
+            self.vx = self.vx *-1 
+    
+    def comprobar_choqueV2(self,*raquetas):
+        #logica de choque
+        for r in raquetas:
+            if self.p_derecho >= r.p_izquierdo and\
+                self.p_izquierdo <= r.p_derecho and\
+                self.p_arriba <= r.p_abajo and \
+                self.p_abajo >= r.p_arriba:
+                self.vx = self.vx *-1     
 
     
 

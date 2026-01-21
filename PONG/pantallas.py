@@ -11,15 +11,19 @@ class Partida:
         pg.display.set_caption( "PONG" )
         self.tasa_refresco =pg.time.Clock()
         self.pelota = Pelota(ANCHO//2,ALTO//2,color=COLOR_PELOTA)
-        self.raqueta1 = Raqueta(20,ANCHO//2)
+        self.raqueta1 = Raqueta(20,ALTO//2)
         self.raqueta2 = Raqueta(ANCHO,ALTO//2)
-        self.marcador_font = pg.font.SysFont("arial",30)
-        self.marcador_tiempo_font = pg.font.SysFont("arial",35)
+        #self.marcador_font = pg.font.SysFont("arial",30)
+        #self.marcador_tiempo_font = pg.font.SysFont("arial",35)
+        self.marcador_font = pg.font.Font("pongapp/fonts/PressStart2P.ttf",15)
+        self.marcador_tiempo_font = pg.font.Font("pongapp/fonts/RussoOne.ttf",20)
         self.contadorDerecho=0
         self.contadorIzquierdo=0
         self.quienMarco = ""
         self.temporizador = TIEMPO_JUEGO
         self.game_over = True
+        self.colorFondo=PISTA_VERDE
+        self.contadorFotograma=0
 
     def bucle_fotograma(self):
         
@@ -33,7 +37,7 @@ class Partida:
             
             self.finalizacion_juego()
             #self.pantalla_principal.fill(  COLOR_FONDO )
-            self.fondo_juego() 
+            self.pantalla_principal.fill( self.fondo_juego()   )
             
             self.quienMarco = self.pelota.mover(ANCHO,ALTO) 
 
@@ -71,10 +75,10 @@ class Partida:
         jugador2 = self.marcador_font.render("Jugador 2",True,COLOR_AZUL)
         tiempo_juego = self.marcador_tiempo_font.render(f"{int(self.temporizador/1000)}",True,COLOR_ROSA)
         #mostrar el texto definido y la posicion x, y donde se mostraran
-        self.pantalla_principal.blit(marcador1,(320,50))
-        self.pantalla_principal.blit(marcador2,(450,50))
-        self.pantalla_principal.blit(jugador1,(280,20))
-        self.pantalla_principal.blit(jugador2,(420,20))
+        self.pantalla_principal.blit(marcador1,((ALTO//2)+20,50))
+        self.pantalla_principal.blit(marcador2,((ANCHO//2)+50,50))
+        self.pantalla_principal.blit(jugador1,((ALTO//2)-50,20))
+        self.pantalla_principal.blit(jugador2,((ANCHO//2)+50,20))
         self.pantalla_principal.blit(tiempo_juego,(ANCHO//2,10))
 
         
@@ -93,10 +97,26 @@ class Partida:
             print("fin del juego")
             self.game_over = False   
 
-    def fondo_juego(self):   
-        if self.temporizador <= 10000 and self.temporizador > 5000:
-            self.pantalla_principal.fill( PISTA_NARANJA  )
-        elif self.temporizador <= 5000:
-            self.pantalla_principal.fill( PISTA_ROJA  ) 
+    def fondo_juego(self):
+        self.contadorFotograma += 1
+        #los 10 segundos
+        if self.temporizador > 10000:
+            self.contadorFotograma= 0
+        elif self.temporizador > 5000:
+            if self.contadorFotograma == 80:
+                if self.colorFondo == PISTA_VERDE:
+                    self.colorFondo = PISTA_NARANJA
+                else:
+                    self.colorFondo = PISTA_VERDE
+                self.contadorFotograma = 0        
+        #los 5 segundos
         else:
-            self.pantalla_principal.fill( COLOR_FONDO )    
+
+            if self.contadorFotograma == 80:
+                if self.colorFondo == PISTA_VERDE or self.colorFondo == PISTA_NARANJA:
+                    self.colorFondo = PISTA_ROJA
+                else:
+                    self.colorFondo = PISTA_VERDE
+                self.contadorFotograma = 0
+
+        return self.colorFondo   

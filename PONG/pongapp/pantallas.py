@@ -1,4 +1,3 @@
-import pygame as pg
 from pongapp.figura_class import *
 from pongapp.utils import *
 
@@ -6,7 +5,6 @@ from pongapp.utils import *
 
 class Partida:
     def __init__(self):
-        pg.init()
         self.pantalla_principal = pg.display.set_mode( (ANCHO,ALTO) )
         pg.display.set_caption( "PONG" )
         self.tasa_refresco =pg.time.Clock()
@@ -22,7 +20,7 @@ class Partida:
         self.game_over = True
         self.colorFondo=PISTA_VERDE
         self.contadorFotograma=0
-        self.resultado=""
+        self.resultado_partido=""
 
     def bucle_fotograma(self):
         
@@ -54,8 +52,9 @@ class Partida:
             self.mostrar_marcador()
             
             pg.display.flip()        
+        return self.resultado_partido
 
-        pg.quit()
+        
 
     def mostrar_linea_central(self):
         for i in range(0,ALTO,30):
@@ -86,25 +85,25 @@ class Partida:
         if self.temporizador <= 0:
             self.game_over = False 
             if self.contadorIzquierdo > self.contadorDerecho:
-                self.resultado = f"Jugador1 - Resultado: Jugador1:{self.contadorIzquierdo}, Jugador2:{self.contadorDerecho}"
+                self.resultado_partido = f"Jugador1 - Resultado: Jugador1:{self.contadorIzquierdo}, Jugador2:{self.contadorDerecho}"
             elif self.contadorIzquierdo < self.contadorDerecho:
-                self.resultado= f"Jugador2 - Resultado: Jugador1:{self.contadorIzquierdo}, Jugador2:{self.contadorDerecho}"
+                self.resultado_partido= f"Jugador2 - Resultado: Jugador1:{self.contadorIzquierdo}, Jugador2:{self.contadorDerecho}"
             else:
-                self.resultado = f"Empate entre Jugador1 y Jugador2 - Resultado: Jugador1:{self.contadorIzquierdo}, Jugador2:{self.contadorDerecho}"
+                self.resultado_partido = f"Empate entre Jugador1 y Jugador2 - Resultado: Jugador1:{self.contadorIzquierdo}, Jugador2:{self.contadorDerecho}"
              
-            return self.resultado 
+            return self.resultado_partido
        
        #finalizacion de juego por puntaje
         if self.contadorIzquierdo == 7:
             #print(f"gana el Jugador1: {self.contadorIzquierdo}")
             self.game_over=False
             self.resultado = f"Jugador1 - Resultado: Jugador1:{self.contadorIzquierdo}, Jugador2:{self.contadorDerecho}"
-            return self.resultado
+            return self.resultado_partido
         if self.contadorDerecho == 7:
             #print(f"gana el Jugador2 {self.contadorDerecho}")
             self.game_over=False
-            self.resultado = f"Jugador2 - Resultado: Jugador1:{self.contadorIzquierdo}, Jugador2:{self.contadorDerecho}"
-            return self.resultado
+            self.resultado_partido = f"Jugador2 - Resultado: Jugador1:{self.contadorIzquierdo}, Jugador2:{self.contadorDerecho}"
+            return self.resultado_partido
 
         
         
@@ -134,7 +133,7 @@ class Partida:
 
 
 class Menu:
-    pg.init()
+    
     def __init__(self):
         self.pantalla_principal = pg.display.set_mode((ANCHO,ALTO))
         pg.display.set_caption("Menu")
@@ -159,6 +158,7 @@ class Menu:
                 return "partida"
             elif teclado[pg.K_r]==True:
                 pg.mixer.Sound.stop(self.sonido)
+                game_over = False
                 return "record"
 
 
@@ -169,17 +169,20 @@ class Menu:
             self.pantalla_principal.blit(texto_record,(250,(ALTO//2)-50))
             pg.display.flip()
 
-        pg.quit()    
+         
 
 
 class Resultado:
-    def __init__(self,resultado):
-        pg.init()
+    def __init__(self):
+      
         self.pantala_principal = pg.display.set_mode((ANCHO,ALTO))
         pg.display.set_caption("Resultado")
         self.tasa_refresco = pg.time.Clock()
         self.fuente_resultado = pg.font.Font(FUENTE2,15)
-        self.resultado = resultado
+        self.resultado = ""
+    
+    def cargar_resultado(self,valor):
+        self.resultado = valor
 
     def bucle_pantalla(self):
         game_over=True
@@ -187,18 +190,20 @@ class Resultado:
             for evento in pg.event.get():
                 if evento.type == pg.QUIT:
                     game_over = False 
+            
             self.pantala_principal.fill(COLOR_BLANCO)
             texto_resultado= self.fuente_resultado.render(f"El ganador es: {self.resultado}",True,COLOR_ROSA)   
             self.pantala_principal.blit(texto_resultado,(150,ALTO//2))
-            pg.display.flip()        
+            pg.display.flip()   
 
+      
 
-        pg.quit()
+        
 
 
 class Record:
     def __init__(self):
-        pg.init()
+      
         self.pantalla_principal= pg.display.set_mode((ANCHO,ALTO ))
         pg.display.set_caption("Mejores Puntajes")
         self.tasa_refresco = pg.time.Clock()
@@ -212,31 +217,12 @@ class Record:
                 if evento.type == pg.QUIT:
                     game_over = False
 
+                botones = pg.key.get_pressed()
+                if botones[pg.K_RETURN]:
+                     return "menu"   
+
             self.pantalla_principal.fill(COLOR_BLANCO)
             texto= self.fuente_record.render(f"RECORD",True,COLOR_ROSA)   
             self.pantalla_principal.blit(texto,(ANCHO//2,ALTO//2))
 
             pg.display.flip()
-
-        pg.quit()    
-    def __init__(self,resultado):
-        pg.init()
-        self.pantala_principal = pg.display.set_mode((ANCHO,ALTO))
-        pg.display.set_caption("Resultado")
-        self.tasa_refresco = pg.time.Clock()
-        self.fuente_resultado = pg.font.Font(FUENTE2,30)
-        self.resultado = resultado
-
-    def bucle_pantalla(self):
-        game_over=True
-        while game_over:
-            for evento in pg.event.get():
-                if evento.type == pg.QUIT:
-                    game_over = False 
-            self.pantala_principal.fill(COLOR_BLANCO)
-            texto_resultado= self.fuente_resultado.render(f"El ganador es: {self.resultado}",True,COLOR_ROSA)   
-            self.pantala_principal.blit(texto_resultado,(200,ALTO//2))
-            pg.display.flip()        
-
-
-        pg.quit()

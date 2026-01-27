@@ -10,7 +10,7 @@ game_over = True
 
 lista_rectangulos=[]
 for i in range(250):
-    rect = Rectangulo(ra.randint(0, 800),ra.randint(-600, 0),5,30,ra.randint(2, 6))
+    rect = Rectangulo(ra.randint(0, 800),ra.randint(-600, 0),5,10,ra.randint(2, 6))
     lista_rectangulos.append(rect)
 
 clock = pg.time.Clock()    

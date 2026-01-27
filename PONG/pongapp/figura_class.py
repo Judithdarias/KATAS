@@ -1,4 +1,3 @@
-import pygame as pg
 from pongapp.utils import *
 
 class Raqueta:
@@ -41,6 +40,7 @@ class Pelota:
         self.radio = radio
         self.vx = 1
         self.vy = 1
+        self.sonido = pg.mixer.Sound(SONIDO_JUEGO)
 
 
     def dibujar(self,screen):
@@ -100,4 +100,6 @@ class Pelota:
                 self.p_izquierdo <= r.p_derecho and\
                 self.p_arriba <= r.p_abajo and \
                 self.p_abajo >= r.p_arriba:
-                self.vx = self.vx *-1       
+                self.vx = self.vx *-1
+                pg.mixer.Sound.play(self.sonido)  
+                pg.mixer.Sound.set_volume(self.sonido,0.05)    

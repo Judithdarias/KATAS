@@ -1,4 +1,4 @@
-from pantallas import *
+from pongapp.pantallas import *
 
 
 """

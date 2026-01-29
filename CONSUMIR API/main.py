@@ -17,3 +17,9 @@ print("USD: ",respuesta['rates']['USD'])
 print("MXN: ",respuesta['rates']['MXN'])
 print("BTC: ",respuesta['rates']['BTC'])
 
+# ejercicio 2, capturar errores de peticion http
+
+if response.status_code == 200:
+    print(f"rates: {respuesta['rates']},\nUSD: {respuesta['rates']['USD']},\nMXN: {respuesta['rates']['MXN']},\nBTC: {respuesta['rates']['BTC']}" )
+elif response.status_code >= 400:
+    print("error: codigo:"+ respuesta['error']['code'] +" mensaje:"+ respuesta['error']['message'] )

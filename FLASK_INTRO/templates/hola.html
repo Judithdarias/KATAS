@@ -3,9 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>html</title>
 </head>
+<style>
+    .my_estilo{
+     background-color: rgb(119, 255, 0);   
+    }
+
+    h1{
+        color: brown;
+    }
+
+</style>
 <body>
+    <h1>Hola esto es html </h1>
+    <h1>esto es otro h1</h1>
+    <h4 style="color: blue;background-color: aliceblue;text-align: center;">esto es un saludo en h4</h4>
+    <p class="my_estilo" >Esto es un parrafo en html</p>
+    <!-- esto es un comentario en html -->
+
+    <p>{{ variable }} </p>
+    <p>{{ nombre }}</p>
+
+    <p>Lista : {{list_fruta[0]}}</p>
+
+    {% for item in list_fruta %}
+        <li>{{item}}</li>
+    {% endfor %}
+
+    <button>Preciona</button>
+    <a href="/segunda" target="_blank"> Ir a segunda</a>
     
 </body>
 </html>

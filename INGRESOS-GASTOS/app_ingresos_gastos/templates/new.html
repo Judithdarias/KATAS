@@ -1,27 +1,17 @@
 {% extends "base.html" %}
 
-{% block title %} 
- New
-{% endblock %}    
-
-
 {% block pageBase %}
-
-   <section>
-        <form>
-            <label>Fecha:</label><br>
-            <input type="date" id="fecha" name="fecha"><br>
-            <label>Concepto:</label><br>
-            <input type="text" id="concepto" name="concepto"><br><br>
-            <label>Monto:</label><br>
-            <input type="number" id="monto" name="monto"><br><br>
-            <input type="button" value="Guardar">
-        </form> 
-        <br>
-        <button>
-            <a href="/"  >Volver </a>
-        </button>
-        
-    </section>
+<form>
+    <label>Fecha:</label><br>
+    <input type="date" id="fecha" name="fecha"><br>
+    <label>Concepto:</label><br>
+    <input type="text" id="concepto" name="concepto"><br><br>
+    <label>Monto:</label><br>
+    <input type="number" id="monto" name="monto"><br><br>
+    <input type="button" value="Guardar">
+</form> 
+<br>
+<button>
+    <a href="/"  >Volver </a>
+</button>
 {% endblock %}
-    

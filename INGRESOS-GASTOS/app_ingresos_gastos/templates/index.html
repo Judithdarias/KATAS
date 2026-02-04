@@ -1,27 +1,22 @@
 {% extends "base.html" %}
-
+{# esto es un comentario #}
 {% block pageBase %}
+
+    
 <table>
     <tr>
         <th>Fecha</th>
         <th>Concepto</th>
         <th>Monto</th>
     </tr>
-    <tr>
-        <td>01/09/2025</td>
-        <td>Salario</td>
-        <td>1800€</td>
-    </tr>
-    <tr>
-        <td>15/09/2025</td>
-        <td>Compras de Alimentos</td>
-        <td>-250€</td>
-    </tr>
-    <tr>
-        <td>30/09/2025</td>
-        <td>Compra de Ropa</td>
-        <td>-150€</td>
-    </tr>
+    {% for dato in lista %}
+        <tr>          
+            <td>{{dato['fecha']}}</td>
+            <td>{{dato['concepto']}}</td>
+            <td>{{dato['monto']}}€</td>
+        </tr>
+    {% endfor %}
+    
 </table> 
 <a href="/new" >Nuevo Registro</a>
 {% endblock %}

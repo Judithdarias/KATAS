@@ -3,17 +3,29 @@
 {% block pageBase %}
 
 <h2> {{titulo}} de ingresos y gastos</h2>
+
+
 <form method="post" action="/new">
     <label>Fecha:</label><br>
-    <input type="date" id="fecha" name="dfecha"><br>
+    <input type="date" id="fecha" name="dfecha" value="{{dataform['dfecha']}}" ><br>
     <label>Concepto:</label><br>
-    <input type="text" id="concepto" name="dconcepto"><br><br>
+    <input type="text" id="concepto" name="dconcepto" value="{{dataform['dconcepto']}}"><br><br>
     <label>Monto:</label><br>
-    <input type="number" id="monto" name="dmonto"><br><br>
+    <input type="number" id="monto" name="dmonto" step="0.01" value="{{dataform['dmonto']}}"><br><br>
     <button type="submit">{{boton}}</button>
 </form> 
 <br>
 <button>
     <a href="/"  >Volver </a>
 </button>
+
+
+<div style="color: red;">
+    <ul>
+        {% for item in error %}
+            <li>{{item}}</li>
+        {% endfor %}
+    </ul>
+
+</div>
 {% endblock %}

@@ -29,6 +29,7 @@ lectura.writerow(['05/02/2026','merienda','-16'])
 
 mifichero.close()
 """
+"""
 from datetime import date
 
 print(str(date.today()))
@@ -37,3 +38,13 @@ if str(date.today()) < '2026-02-06':
     print("es verdadero")
 else:
     print("es falso")
+"""
+lista = ""
+#comprobar si una lista esta vacia
+#if len(lista) == 0:
+#    print("lista esta vacia")
+
+if lista:
+    print("esta cargada")
+else:
+    print("lista esta vacia")

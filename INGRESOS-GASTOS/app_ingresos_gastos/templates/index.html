@@ -4,16 +4,24 @@
     
 <table>
     <tr>
+        <th>#</th>
         <th>Fecha</th>
         <th>Concepto</th>
         <th>Monto</th>
+        <th>Acciones</th>
     </tr>
     {% for dato in lista %}
-        <tr>          
-            <td>{{dato[0]}}</td>
+        <tr>
+            <td>{{dato[0]}}</td>          
             <td>{{dato[1]}}</td>
-            <td>{{dato[2]}}€</td>
+            <td>{{dato[2]}}</td>
+            <td>{{dato[3]}}€</td>
+            <td>
+                <a href="/update/{{dato[0]}}">Modificar</a>
+                <a href="/delete/{{dato[0]}}">Eliminar</a>
+            </td>
         </tr>
+
     {% endfor %}
     
 </table> 

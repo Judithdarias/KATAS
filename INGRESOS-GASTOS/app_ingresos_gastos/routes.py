@@ -36,12 +36,29 @@ def new():
         if comprobar_errores:
             return render_template("new.html",title="Registro", titulo="Registro",boton="Guardar",error=comprobar_errores,dataform = request.form)
         else:
+            ################Generar el nuevo id para registro###############################    
+            lista_id=[]
+            last_id=""
+            new_id=0
+            fichero = open('app_ingresos_gastos/data/movimientos.csv','r')
+            lectura = csv.reader(fichero,delimiter=",",quotechar='"')
+            for item in lectura:
+                lista_id.append(item[0]) #guardo solo los ids eje:[1,2,3]
+            last_id = lista_id[-1]#obtenemos el ultimo id registrado
+            new_id = int(last_id) +1 #creo el nuevo id para luego registrarlo
+            fichero.close()
+
+            #################################Guardar el id anterior en last_id.csv###############################################
+            fichero_new_id=open('app_ingresos_gastos/data/last_id.csv','w')
+            fichero_new_id.write(str(new_id))
+            fichero_new_id.close()
+
             #acceder al archivo y configurar la carga del nuevo registro
             mifichero = open('app_ingresos_gastos/data/movimientos.csv','a',newline="")
             #llamar al metodo writer de escritura y configuramos el formato
             lectura = csv.writer(mifichero,delimiter=",",quotechar='"')
             #registramos los datos recibidos desde el formulario al archivo csv
-            lectura.writerow( [ request.form['dfecha'],request.form['dconcepto'],request.form['dmonto'] ] )
+            lectura.writerow( [ new_id, request.form['dfecha'],request.form['dconcepto'],request.form['dmonto'] ] )
             #cierre del archivo moviemientos.csv
             mifichero.close()
 
@@ -51,14 +68,17 @@ def new():
         return render_template("new.html",title="Registro", titulo="Registro",boton="Guardar",dataform={}) 
 
 #http://127.0.0.1:5000/delete
-@app.route("/delete")
-def delete():
-    return render_template("delete.html",title="Borrar")
+@app.route("/delete/<int:id>")
+def delete(id):
+    return f"El registro para borrar es el de id:{id}"
+    #return render_template("delete.html",title="Borrar")
+
 
 #http://127.0.0.1:5000/update
-@app.route("/update")
-def update():
-    return render_template("update.html",title="Actualizar",titulo="Actualización",boton="Actualizar")
+@app.route("/update/<int:id>")
+def update(id):
+    return f"El registro para actualizar es el de id:{id}"
+    #return render_template("update.html",title="Actualizar",titulo="Actualización",boton="Actualizar")
 
 
 """

@@ -5,22 +5,34 @@
 <h2> {{titulo}} de ingresos y gastos</h2>
 
 
+
 <form method="post" action="{{ruta}}">
-    <label>Fecha:</label><br>
-    <input type="date" id="fecha" name="dfecha" value="{{dataform['dfecha']}}" ><br>
-    <label>Concepto:</label><br>
-    <input type="text" id="concepto" name="dconcepto" value="{{dataform['dconcepto']}}"><br><br>
-    <label>Monto:</label><br>
-    <input type="number" id="monto" name="dmonto" step="0.01" value="{{dataform['dmonto']}}"><br><br>
-    <button type="submit">{{boton}}</button>
-</form> 
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Fecha</label>
+    <input type="date" class="form-control" id="exampleInputEmail1" name="dfecha" value="{{dataform['dfecha']}}">
+    
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Concepto:</label>
+    <input type="text" class="form-control" id="exampleInputPassword1" name="dconcepto" value="{{dataform['dconcepto']}}">
+  </div>
+  <div class="mb-3">
+     <label for="exampleCheck1" class="form-label">Monto:</label>
+    <input type="number" class="form-control" id="exampleCheck1" name="dmonto" step="0.01" value="{{dataform['dmonto']}}">
+
+  </div>
+  <button type="submit" class="btn btn-primary">{{boton}}</button>
+</form>
+
+
 <br>
-<button>
+<br>
+<button class="btn btn-success">
     <a href="/"  >Volver </a>
 </button>
 
 
-<div style="color: red;">
+<div class="alert alert-danger" role="alert">
     <ul>
         {% for item in error %}
             <li>{{item}}</li>

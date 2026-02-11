@@ -50,10 +50,31 @@ def update(id):
         
         return render_template("update.html",title="Actualizar",titulo="Actualización",boton="Actualizar", dataform =registro_buscado_update, ruta=f"/update/{id}")
     else:#POST
-        return f"se debe actualizar los datos del id: {id} del formulario {request.form}"
+
+        comprobar_error = validar_formulario(request.form)
+
+        if comprobar_error:
+            return render_template("update.html",title="Actualizar",titulo="Actualización",boton="Actualizar", dataform =request.form, ruta=f"/update/{id}",error = comprobar_error)
+
+        todos_registros=select_all()
+        update_by(id,todos_registros,request.form)
+
+        return redirect("/")
 
 
 def validar_formulario(datos_formulario):
+    hoy = str( date.today() )
+    if datos_formulario['dmonto'] != "":
+        monto_int = float( datos_formulario['dmonto'] )
+    errores = []
+    if datos_formulario['dfecha'] > hoy:
+        errores.append("La fecha no puede ser mayor que la actual")
+    if datos_formulario['dconcepto'] == "":
+        errores.append("El concepto no puede ir vacio")
+    if datos_formulario['dmonto'] == "" or  monto_int == 0:
+        errores.append("El monto deber ser distinto de 0 y de vacio")
+
+    return errores    
     hoy = str( date.today() )
     if datos_formulario['dmonto'] != "":
         monto_int = float( datos_formulario['dmonto'] )

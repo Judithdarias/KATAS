@@ -2,7 +2,7 @@
 {# esto es un comentario #}
 {% block pageBase %}
     
-<table>
+<table class="table">
     <tr>
         <th>#</th>
         <th>Fecha</th>
@@ -17,8 +17,8 @@
             <td>{{dato[2]}}</td>
             <td>{{dato[3]}}€</td>
             <td>
-                <a href="/update/{{dato[0]}}">Modificar</a>
-                <a href="/delete/{{dato[0]}}">Eliminar</a>
+                <a class="btn btn-primary"  href="/update/{{dato[0]}}">Modificar</a>
+                <a class="btn btn-danger" href="/delete/{{dato[0]}}">Eliminar</a>
             </td>
         </tr>
 
@@ -26,7 +26,7 @@
     
 </table> 
 <br>
-<button>
+<button class="btn btn-info">
     <a href="/new" >Nuevo Registro</a>
 </button>
 <br>

@@ -57,8 +57,11 @@ def insert(request_form):
     lectura = csv.reader(fichero,delimiter=",",quotechar='"')
     for item in lectura:
         lista_id.append(item[0]) #guardo solo los ids eje:[1,2,3]
-    last_id = lista_id[-1]#obtenemos el ultimo id registrado
-    new_id = int(last_id) +1 #creo el nuevo id para luego registrarlo
+    if lista_id == []:
+        new_id=1
+    else:        
+        last_id = lista_id[-1]#obtenemos el ultimo id registrado
+        new_id = int(last_id) +1 #creo el nuevo id para luego registrarlo
     fichero.close()
 
     #################################Guardar el id anterior en last_id.csv###############################################
@@ -76,5 +79,16 @@ def insert(request_form):
     mifichero.close()
 
 
-def update_by(id):
-    pass
+def update_by(id,registros,request_form):
+    nuevos_datos=[]
+    for item in registros:
+        if item[0] == str(id):
+            nuevos_datos.append([id,request_form['dfecha'],request_form['dconcepto'],request_form['dmonto']])
+        else:
+            nuevos_datos.append(item)
+
+    fichero_update= open(MOVIMIENTOS_FILE,'w',newline='') 
+    csv_writer = csv.writer(fichero_update,delimiter=',',quotechar='"')
+    csv_writer.writerows(nuevos_datos)   
+
+    fichero_update.close()        

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block contenido %}       
+<h1>Lista de Movimientos</h1>
+<table>
+    <thead>
+        <tr>
+        <th scope="col">Fecha</th>
+        <th scope="col">Concepto</th>
+        <th scope="col">Monto</th>
+        <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in datos %}
+                <tr>
+                <th scope="row">{{item['fecha']}}</th>
+                <td>{{item['concepto']}}</td>
+                <td>{{item['monto']}}</td>
+                <td>
+                    <a href="#">
+                        <span class="material-symbols-outlined">
+                        edit
+                        </span>
+                    </a>
+                    
+                    <a href="#">
+                        <span class="material-symbols-outlined">
+                            delete
+                        </span>
+                    </a>        
+                    
+
+
+                </td>
+            </tr>
+        {% endfor %}
+        
+        
+    </tbody>
+    
+</table>
+{% endblock %}

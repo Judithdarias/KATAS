@@ -1,4 +1,44 @@
 {% extends "base.html" %}
 
 
-{%block contenido }
+{% block contenido %}
+
+<form action="/new" method="POST">
+  <fieldset>
+    <label>
+      Fecha
+      <input
+        type="date"
+        name="date"
+        placeholder="Ingrese aqui la fecha"
+        
+      />
+    </label>
+    <label>
+      Concepto
+      <input
+        type="text"
+        name="concept"
+        placeholder="Ingrese aqui el concepto"
+       
+      />
+    </label>
+    <label>
+      Monto
+      <input
+        type="number"
+        name="quantity"
+        placeholder="Ingrese aqui el monto"
+        
+      />
+    </label>
+  </fieldset>
+
+  <input
+    type="submit"
+    value="Guardar"
+  />
+</form>
+
+
+{% endblock %}

@@ -1,6 +1,13 @@
 header,footer{
-    background-color: var (--pico-primary);
+    background-color: var(--pico-primary);
     color:var(--pico-primary-inverse);
     font-size:1.4em;
     font-weight: bold;
+}
+
+body{
+    min-height: 100vh;
+    display: grid;
+    grid-auto-flow: auto 500px 1fr auto;
+    margin: 0;
 }
